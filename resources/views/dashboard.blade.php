@@ -1,49 +1,63 @@
+
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            Dashboard Peserta
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 space-y-6">
+    <div class="py-8">
+        <div class="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
 
-                <!-- Kompeten -->
-                <div>
-                    <h3 class="text-base font-semibold text-green-600 mb-2 flex items-center">
-                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full mr-2"></span>
-                        Kompeten
+            <div class="rounded-xl bg-white p-6 shadow-sm">
+                <h3 class="text-2xl font-bold text-gray-800">
+                    Selamat datang, {{ auth()->user()->name }}!
+                </h3>
+
+                <p class="mt-2 text-gray-600">
+                    Selamat datang di dashboard peserta sertifikasi.
+                    Kamu dapat menggunakan halaman ini untuk mengakses
+                    informasi dan layanan sertifikasi.
+                </p>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-3">
+
+                <div class="rounded-xl bg-white p-6 shadow-sm">
+                    <div class="text-3xl">👤</div>
+                    <h3 class="mt-4 font-semibold text-gray-800">
+                        Profil Peserta
                     </h3>
-                    <ul class="pl-5 space-y-1 text-sm text-gray-700">
-                        @forelse($mahasiswaKompeten ?? [] as $mhs)
-                            <li>
-                                <span class="font-medium text-gray-900">{{ $mhs->nama_lengkap }}</span> — {{$mhs->skema->nama_skema ?? '-' }}
-                            </li>
-                        @empty
-                            <li class="text-gray-400 italic">Tidak ada data.</li>
-                        @endforelse
-                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Informasi akun peserta yang sedang login.
+                    </p>
+                    <p class="mt-3 break-all text-sm font-medium">
+                        {{ auth()->user()->email }}
+                    </p>
                 </div>
 
-                <!-- Belum Kompeten -->
-                <div>
-                    <h3 class="text-base font-semibold text-red-600 mb-2 flex items-center">
-                        <span class="w-2.5 h-2.5 bg-red-500 rounded-full mr-2"></span>
-                        Belum Kompeten
+                <div class="rounded-xl bg-white p-6 shadow-sm">
+                    <div class="text-3xl">📋</div>
+                    <h3 class="mt-4 font-semibold text-gray-800">
+                        Skema Sertifikasi
                     </h3>
-                    <ul class="pl-5 space-y-1 text-sm text-gray-700">
-                        @forelse($mahasiswaBelumKompeten ?? [] as $mhs)
-                            <li>
-                                <span class="font-medium text-gray-900">{{ $mhs->nama_lengkap }}</span> — {{$mhs->skema->nama_skema ?? '-' }}
-                            </li>
-                        @empty
-                            <li class="text-gray-400 italic">Tidak ada data.</li>
-                        @endforelse
-                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Informasi mengenai skema sertifikasi kompetensi.
+                    </p>
                 </div>
 
-                <!-- Menunggu -->
-                <div>
-                    <h3 class="text-base font-semibold text-yellow-600 mb-2 flex items-center">
-                        <span class="w-2.5 h-2
+                <div class="rounded-xl bg-white p-6 shadow-sm">
+                    <div class="text-3xl">📄</div>
+                    <h3 class="mt-4 font-semibold text-gray-800">
+                        Status Sertifikasi
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Informasi status sertifikasi akan ditampilkan
+                        setelah fitur pengajuan peserta terhubung.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>
