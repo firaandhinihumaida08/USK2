@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
@@ -19,13 +16,11 @@ return new class extends Migration
             $table->string('email');
             $table->string('no_hp');
             $table->foreignId('skema_id')->constrained('skemas')->onDelete('cascade');
+            $table->string('status_kelulusan')->default('Menunggu'); // Tambahan kolom status
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mahasiswas');

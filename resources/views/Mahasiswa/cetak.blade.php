@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Sertifikat / Hasil Asesmen - {{ $mahasiswa.nama_lengkap }}</title>
+    <title>Sertifikat / Hasil Asesmen - {{ $mahasiswa->nama_lengkap }}</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
         .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }

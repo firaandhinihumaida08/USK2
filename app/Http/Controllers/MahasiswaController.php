@@ -6,22 +6,25 @@ use App\Models\Skema;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller {
-    public function index(Request $request) {
-        $search = $request->input('cari');
-        $mahasiswas = Mahasiswa::with('skema')
-            ->when($search, function ($query, $search) {
-                return $query->where('nama_lengkap', 'like', "%{$search}%")
-                             ->orWhere('nim', 'like', "%{$search}%")
-                             ->orWhere('program_studi', 'like', "%{$search}%");
-            })
-            ->paginate(10);
+    public function index(Request $request)
+{
+    $search = $request->input('cari'); // Menangkap dari name="cari" di view
 
-        return view('mahasiswa.index', compact('mahasiswas', 'search'));
-    }
+    $mahasiswas = Mahasiswa::with('skema')
+        ->when($search, function ($query, $search) {
+            return $query->where('nama_lengkap', 'like', "%{$search}%")
+                         ->orWhere('nim', 'like', "%{$search}%")
+                         ->orWhere('program_studi', 'like', "%{$search}%");
+        })
+        ->paginate(10); // Menggunakan paginate agar fungsi firstItem() dan links() aktif kembali
+
+    return view('Mahasiswa.index', compact('mahasiswas', 'search'));
+}
 
     public function create() {
         $skemas = Skema::all();
-        return view('mahasiswa.create', compact('skemas'));
+        $asesors = \App\Models\Asesor::all();
+        return view('mahasiswa.create', compact('skemas', 'asesors'));
     }
 
     public function store(Request $request) {
@@ -46,6 +49,7 @@ class MahasiswaController extends Controller {
 
     public function edit(Mahasiswa $mahasiswa) {
         $skemas = Skema::all();
+        $asesors = \App\Models\Asesor::all();
         return view('mahasiswa.edit', compact('mahasiswa', 'skemas'));
     }
 
@@ -70,7 +74,15 @@ class MahasiswaController extends Controller {
         return redirect()->route('mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 
-    public function cetak(Mahasiswa $mahasiswa) {
+    public function cetak($id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        // Jika statusnya 'Menunggu', tolak dan beri pesan error
+        if ($mahasiswa->status == 'Menunggu') {
+            return redirect()->back()->with('error', 'Mahasiswa dengan status Menunggu belum dapat dicetak.');
+        }
+
         return view('mahasiswa.cetak', compact('mahasiswa'));
     }
 }
