@@ -13,8 +13,13 @@
                 @endif
 
                 <div class="flex justify-between mb-4">
-                    <a href="{{ route('mahasiswa.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah
-                        Mahasiswa</a>
+                    <!-- Tombol Tambah Mahasiswa (Hanya Admin) -->
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('mahasiswa.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah
+                            Mahasiswa</a>
+                    @else
+                        <div></div>
+                    @endif
 
                     <!-- Form Pencarian -->
                     <form action="{{ route('mahasiswa.index') }}" method="GET" class="flex gap-2">
@@ -54,12 +59,15 @@
                                 </td>
                                 <td class="border p-2">
                                     <div class="flex gap-2 items-center">
-                                        <a href="{{ route('mahasiswa.show', $m->id) }}"
-                                            class="text-blue-600 hover:underline">Detail</a>
-                                        <a href="{{ route('mahasiswa.edit', $m->id) }}"
-                                            class="text-yellow-600 hover:underline">Ubah</a>
+                                        <!-- Tombol Detail & Ubah (Hanya Admin) -->
+                                        @if(Auth::user()->role === 'admin')
+                                            <a href="{{ route('mahasiswa.show', $m->id) }}"
+                                                class="text-blue-600 hover:underline">Detail</a>
+                                            <a href="{{ route('mahasiswa.edit', $m->id) }}"
+                                                class="text-yellow-600 hover:underline">Ubah</a>
+                                        @endif
 
-                                        <!-- Tombol Cetak dengan Validasi Status Menunggu -->
+                                        <!-- Tombol Cetak dengan Validasi Status Menunggu (Admin & Mahasiswa) -->
                                         @if ($m->status != 'Menunggu')
                                             <a href="{{ route('mahasiswa.cetak', $m->id) }}" target="_blank"
                                                 class="text-green-600 hover:underline font-semibold">Cetak</a>
@@ -68,13 +76,16 @@
                                                 title="Status masih Menunggu, belum dapat dicetak">Cetak</span>
                                         @endif
 
-                                        <form action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-                                        </form>
+                                        <!-- Tombol Hapus (Hanya Admin) -->
+                                        @if(Auth::user()->role === 'admin')
+                                            <form action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -86,12 +97,15 @@
                     </tbody>
                 </table>
 
-                <div style="margin-top: 20px; margin-bottom: 20px;">
-                    <a href="{{ route('mahasiswa.create') }}"
-                        style="background-color: #2563eb; color: #ffffff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; display: inline-block;">
-                        + Tambah Mahasiswa
-                    </a>
-                </div>
+                <!-- Tombol Tambah Mahasiswa Bawah (Hanya Admin) -->
+                @if(Auth::user()->role === 'admin')
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <a href="{{ route('mahasiswa.create') }}"
+                            style="background-color: #2563eb; color: #ffffff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; display: inline-block;">
+                            + Tambah Mahasiswa
+                        </a>
+                    </div>
+                @endif
 
                 <div class="mt-4">
                     {{ $mahasiswas->withQueryString()->links() }}

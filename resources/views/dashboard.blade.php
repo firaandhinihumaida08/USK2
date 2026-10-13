@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            Dashboard Peserta
+            Dashboard Admin
         </h2>
     </x-slot>
 
@@ -24,7 +24,7 @@
             <div class="grid gap-6 md:grid-cols-3">
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
-                    <div class="text-3xl">👤</div>
+                    <div class="text-3xl"></div>
                     <h3 class="mt-4 font-semibold text-gray-800">
                         Profil Peserta
                     </h3>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
-                    <div class="text-3xl">📋</div>
+                    <div class="text-3xl"></div>
                     <h3 class="mt-4 font-semibold text-gray-800">
                         Skema Sertifikasi
                     </h3>
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="rounded-xl bg-white p-6 shadow-sm">
-                    <div class="text-3xl">📄</div>
+                    <div class="text-3xl"></div>
                     <h3 class="mt-4 font-semibold text-gray-800">
                         Status Sertifikasi
                     </h3>
